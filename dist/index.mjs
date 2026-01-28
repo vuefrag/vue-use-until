@@ -1,5 +1,13 @@
 import { toValue, watch, nextTick, isRef } from 'vue';
 
+function promiseTimeout(ms, throwOnTimeout = false, reason = "Timeout") {
+  return new Promise((resolve, reject) => {
+    if (throwOnTimeout)
+      setTimeout(() => reject(reason), ms);
+    else
+      setTimeout(resolve, ms);
+  });
+}
 function createUntil(r, isNot = false) {
   function toMatch(condition, { flush = "sync", deep = false, timeout, throwOnTimeout } = {}) {
     let stop = null;

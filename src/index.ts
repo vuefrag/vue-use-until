@@ -1,10 +1,25 @@
 import type { MaybeRefOrGetter, WatchOptions, WatchSource } from 'vue'
-// TODO: Inline import ConfigurableFlushSync
-// TODO: Inline import ElementOf
-// TODO: Inline import ShallowUnwrapRef
+// Inlined from @vueuse/shared/utils
+interface ConfigurableFlushSync {
+  flush?: WatchOptions['flush']
+}
+type ElementOf<T> = T extends (infer E)[] ? E : never
+type ShallowUnwrapRef<T> = T extends Ref<infer P> ? P : T
 
 import { isRef, nextTick, toValue, watch } from 'vue'
-// TODO: Inline import promiseTimeout
+// Inlined from @vueuse/shared/utils
+function promiseTimeout(
+  ms: number,
+  throwOnTimeout = false,
+  reason = 'Timeout',
+): Promise<void> {
+  return new Promise((resolve, reject) => {
+    if (throwOnTimeout)
+      setTimeout(() => reject(reason), ms)
+    else
+      setTimeout(resolve, ms)
+  })
+}
 
 
 export interface UntilToMatchOptions extends ConfigurableFlushSync {

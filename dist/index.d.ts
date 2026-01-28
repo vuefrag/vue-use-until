@@ -1,5 +1,10 @@
 import { WatchOptions, MaybeRefOrGetter, WatchSource } from 'vue';
 
+interface ConfigurableFlushSync {
+    flush?: WatchOptions['flush'];
+}
+type ElementOf<T> = T extends (infer E)[] ? E : never;
+type ShallowUnwrapRef<T> = T extends Ref<infer P> ? P : T;
 interface UntilToMatchOptions extends ConfigurableFlushSync {
     /**
      * Milliseconds timeout for promise to resolve/reject if the when condition does not meet.
